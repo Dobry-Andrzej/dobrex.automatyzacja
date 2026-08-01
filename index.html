@@ -280,6 +280,25 @@
             flex: 1;
         }
 
+        .card-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
+            border-radius: 8px;
+        }
+
+        .card-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
         .card-tags {
             display: flex;
             flex-wrap: wrap;
@@ -601,6 +620,9 @@
                 <article class="portfolio-card fade-in">
                     <span class="card-eyebrow">case study 01</span>
                     <h3 class="card-title">automatyczna prognoza pogody z ai</h3>
+                    <div class="card-video">
+                        <iframe src="https://www.youtube.com/watch?v=ZegDwMSMSl0" allowfullscreen></iframe>
+                    </div>
                     <p class="card-desc">chatbot pogodowy z ai. wpisujesz miasto → dostajesz czytelną prognozę na 3 dni z automatycznymi ostrzeżeniemi. codzienna prognoza o 8:00 na discord.</p>
                     <div class="card-tags">
                         <span class="card-tag">n8n</span>
@@ -723,7 +745,7 @@
             <div class="cta-box">
                 <h2 class="cta-title">chcesz zautomatyzować swoje procesy?</h2>
                 <p class="cta-desc">napisz do mnie, a porozmawiamy o tym, jak mogę pomóc twojej firmie zaoszczędzić czas i pieniądze.</p>
-                <a href="mailto:dobry.andrzejit@gmail.com" class="cta-button">napisz do mnie</a>
+                <a href="dobry.andrzejit@gmail.com:TWOJ_EMAIL" class="cta-button">napisz do mnie</a>
             </div>
         </section>
     </div>
