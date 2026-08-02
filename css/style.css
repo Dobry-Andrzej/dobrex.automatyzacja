@@ -406,7 +406,7 @@ body::after {
 /* GSAP Animation Container */
 .card-animation {
     width: 100%;
-    height: 180px;
+    height: 220px;
     margin-bottom: var(--space-lg);
     border-radius: 8px;
     background: var(--color-paper-3);
@@ -424,31 +424,30 @@ body::after {
    ======================================== */
 
 .workflow-animation {
-    padding: var(--space-sm);
+    padding: 0;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
 .workflow-svg {
     width: 100%;
     height: 100%;
-    max-height: 180px;
 }
 
 /* Connection lines */
 .workflow-line {
     fill: none;
-    stroke: oklch(72% 0.01 262 / 0.25);
-    stroke-width: 1.5;
+    stroke: oklch(72% 0.01 262 / 0.3);
+    stroke-width: 2;
     stroke-linecap: round;
 }
 
 /* Nodes base */
 .workflow-node rect {
     fill: var(--color-paper);
-    stroke: oklch(72% 0.01 262 / 0.3);
-    stroke-width: 1.5;
+    stroke: oklch(72% 0.01 262 / 0.35);
+    stroke-width: 2;
     transition: stroke 0.3s, filter 0.3s;
 }
 
@@ -458,12 +457,12 @@ body::after {
 }
 
 .node-icon {
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .node-label {
     font-family: var(--font-mono);
-    font-size: 7px;
+    font-size: 11px;
     fill: var(--color-ink-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -852,7 +851,15 @@ body::after {
     }
 
     .card-animation {
-        height: 140px;
+        height: 180px;
+    }
+
+    .workflow-animation .node-label {
+        font-size: 9px;
+    }
+
+    .workflow-animation .node-icon {
+        font-size: 14px;
     }
 }
 
