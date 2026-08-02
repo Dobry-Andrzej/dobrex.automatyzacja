@@ -1,0 +1,766 @@
+/* Hallmark · genre: atmospheric · macrostructure: Portfolio Grid · theme: Lumen (Night Foundry)
+ * enrichment: none (typography only) · nav: N5 Floating pill · footer: Ft5 Statement
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * contrast: pass (46–50)
+ */
+
+/* ========================================
+   1. CSS Variables
+   ======================================== */
+
+:root {
+    --color-paper: oklch(13% 0.014 265);
+    --color-paper-2: oklch(16% 0.014 265);
+    --color-paper-3: oklch(19% 0.014 265);
+    --color-ink: oklch(96% 0.006 262);
+    --color-ink-muted: oklch(72% 0.01 262);
+    --color-accent: oklch(76% 0.17 50);
+    --color-accent-2: oklch(68% 0.16 18);
+    --color-glow: oklch(80% 0.16 50 / 0.42);
+    --color-paper-emit: oklch(76% 0.17 50 / 0.04);
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', 'Courier New', monospace;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+    --space-4xl: 96px;
+    --nav-height: 72px;
+}
+
+/* ========================================
+   2. Reset & Base
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: clip;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    min-height: 100vh;
+    position: relative;
+    padding-top: var(--nav-height);
+}
+
+/* Atmospheric background blooms */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--color-glow) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    opacity: 0.3;
+}
+
+body::after {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, oklch(68% 0.16 18 / 0.2) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    opacity: 0.25;
+}
+
+/* ========================================
+   3. Container
+   ======================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   4. Navigation — N5 Floating pill
+   ======================================== */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: oklch(13% 0.014 265 / 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid oklch(96% 0.006 262 / 0.06);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-inner {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-brand {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: var(--color-ink);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+    width: 100%;
+}
+
+.nav-links a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Hamburger button */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+    z-index: 110;
+}
+
+.nav-toggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+    fill: none;
+    transition: stroke 0.2s;
+}
+
+.nav-toggle:hover svg {
+    stroke: var(--color-accent);
+}
+
+/* ========================================
+   5. Hero
+   ======================================== */
+
+.hero {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-4xl) 0;
+    position: relative;
+}
+
+.hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.1;
+    color: var(--color-ink);
+    max-width: 800px;
+    margin-bottom: var(--space-lg);
+}
+
+.hero h1 em {
+    font-style: normal;
+    color: var(--color-accent);
+}
+
+.hero-sub {
+    font-size: 1.125rem;
+    color: var(--color-ink-muted);
+    max-width: 500px;
+    margin-bottom: var(--space-2xl);
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-accent);
+    color: var(--color-paper);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-cta:hover,
+.hero-cta:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--color-glow);
+}
+
+.hero-cta:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+    position: absolute;
+    bottom: var(--space-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.hero-scroll svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--color-ink-muted);
+    stroke-width: 2;
+    fill: none;
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ========================================
+   6. Section Headers
+   ======================================== */
+
+.section-header {
+    margin-bottom: var(--space-2xl);
+}
+
+.section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-ink);
+    line-height: 1.2;
+}
+
+/* ========================================
+   7. Portfolio Grid
+   ======================================== */
+
+.portfolio {
+    padding: var(--space-4xl) 0;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-lg);
+}
+
+.portfolio-card {
+    background: var(--color-paper-2);
+    border: 1px solid oklch(96% 0.006 262 / 0.06);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px -28px oklch(0% 0 0 / 0.55);
+    border-color: oklch(96% 0.006 262 / 0.12);
+}
+
+.card-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-ink);
+    margin-bottom: var(--space-md);
+    line-height: 1.3;
+}
+
+.card-desc {
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-lg);
+    flex: 1;
+}
+
+/* GSAP Animation Container */
+.card-animation {
+    width: 100%;
+    height: 180px;
+    margin-bottom: var(--space-lg);
+    border-radius: 8px;
+    background: var(--color-paper-3);
+    overflow: hidden;
+    position: relative;
+}
+
+.card-animation canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-ink-muted);
+    background: var(--color-paper-3);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 4px;
+}
+
+.card-link {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: gap 0.2s;
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+    gap: var(--space-sm);
+}
+
+.card-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.card-link::after {
+    content: '→';
+}
+
+/* ========================================
+   8. Services
+   ======================================== */
+
+.services {
+    padding: var(--space-4xl) 0;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+}
+
+.service-card {
+    background: var(--color-paper-2);
+    border: 1px solid oklch(96% 0.006 262 / 0.06);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px -28px oklch(0% 0 0 / 0.55);
+}
+
+.service-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+    background: oklch(76% 0.17 50 / 0.1);
+    border-radius: 10px;
+    color: var(--color-accent);
+}
+
+.service-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.service-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-ink);
+    margin-bottom: var(--space-sm);
+}
+
+.service-desc {
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+}
+
+/* ========================================
+   9. About
+   ======================================== */
+
+.about {
+    padding: var(--space-4xl) 0;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.about-text p {
+    font-size: 1.0625rem;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-md);
+}
+
+.about-text p:first-child {
+    font-size: 1.25rem;
+    color: var(--color-ink);
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.stat {
+    background: var(--color-paper-2);
+    border: 1px solid oklch(96% 0.006 262 / 0.06);
+    border-radius: 12px;
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.stat-value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-muted);
+}
+
+/* ========================================
+   10. CTA
+   ======================================== */
+
+.cta {
+    padding: var(--space-4xl) 0;
+    text-align: center;
+}
+
+.cta-box {
+    background: var(--color-paper-2);
+    border: 1px solid oklch(96% 0.006 262 / 0.06);
+    border-radius: 16px;
+    padding: var(--space-3xl);
+}
+
+.cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-ink);
+    margin-bottom: var(--space-md);
+}
+
+.cta-desc {
+    font-size: 1.0625rem;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-accent);
+    color: var(--color-paper);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--color-glow);
+}
+
+.cta-button:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   11. Footer — Ft5 Statement
+   ======================================== */
+
+.footer {
+    padding: var(--space-2xl) 0;
+    text-align: center;
+    border-top: 1px solid oklch(96% 0.006 262 / 0.06);
+}
+
+.footer p {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: normal;
+    color: var(--color-ink-muted);
+}
+
+.footer-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-muted);
+    margin-top: var(--space-md);
+    opacity: 0.6;
+}
+
+/* ========================================
+   12. Animations
+   ======================================== */
+
+.gsap-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* ========================================
+   13. Mobile Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+    :root {
+        --nav-height: 64px;
+    }
+
+    /* Hamburger menu */
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100dvh;
+        background: var(--color-paper);
+        border-left: 1px solid oklch(96% 0.006 262 / 0.08);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-2xl);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 105;
+    }
+
+    .nav-links.is-open {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.125rem;
+    }
+
+    /* Overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100dvh;
+        background: oklch(0% 0 0 / 0.5);
+        z-index: 102;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+    }
+
+    .nav-overlay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: var(--space-3xl) 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
+
+    /* Grid adjustments */
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .card-animation {
+        height: 140px;
+    }
+}
+
+@media (max-width: 375px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .portfolio-card {
+        padding: var(--space-lg);
+    }
+
+    .cta-box {
+        padding: var(--space-xl);
+    }
+}
