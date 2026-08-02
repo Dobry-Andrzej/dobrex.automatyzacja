@@ -4,759 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrzej Dobry | Automatyzacja Procesów Biznesowych</title>
+    <meta name="description" content="Programista full-stack z 7.5-letnim doświadczeniem. Tworzę automatyzacje procesów biznesowych z wykorzystaniem AI.">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        /* Hallmark · genre: atmospheric · macrostructure: Portfolio Grid · theme: Lumen (Night Foundry)
-         * enrichment: none (typography only) · nav: N5 Floating pill · footer: Ft5 Statement
-         * states: default · hover · focus · active · disabled · loading · error · success
-         * contrast: pass (46–50)
-         */
 
-        :root {
-            --color-paper: oklch(13% 0.014 265);
-            --color-paper-2: oklch(16% 0.014 265);
-            --color-paper-3: oklch(19% 0.014 265);
-            --color-ink: oklch(96% 0.006 262);
-            --color-ink-muted: oklch(72% 0.01 262);
-            --color-accent: oklch(76% 0.17 50);
-            --color-accent-2: oklch(68% 0.16 18);
-            --color-glow: oklch(80% 0.16 50 / 0.42);
-            --color-paper-emit: oklch(76% 0.17 50 / 0.04);
-            --font-display: 'Instrument Serif', Georgia, serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'Geist Mono', 'Courier New', monospace;
-            --space-xs: 4px;
-            --space-sm: 8px;
-            --space-md: 16px;
-            --space-lg: 24px;
-            --space-xl: 32px;
-            --space-2xl: 48px;
-            --space-3xl: 64px;
-            --space-4xl: 96px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            overflow-x: clip;
-        }
-
-        body {
-            font-family: var(--font-body);
-            line-height: 1.6;
-            color: var(--color-ink);
-            background: var(--color-paper);
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        body::before {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--color-glow) 0%, transparent 70%);
-            top: -200px;
-            right: -200px;
-            opacity: 0.3;
-        }
-
-        body::after {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, oklch(68% 0.16 18 / 0.2) 0%, transparent 70%);
-            bottom: -150px;
-            left: -150px;
-            opacity: 0.25;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Nav — N5 Floating pill */
-        nav {
-            position: fixed;
-            top: var(--space-lg);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            background: oklch(16% 0.014 265 / 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid oklch(96% 0.006 262 / 0.08);
-            border-radius: 100px;
-            padding: var(--space-sm) var(--space-lg);
-            display: flex;
-            align-items: center;
-            gap: var(--space-lg);
-        }
-
-        nav .brand {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-accent);
-        }
-
-        nav a {
-            color: var(--color-ink-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s;
-        }
-
-        nav a:hover,
-        nav a:focus-visible {
-            color: var(--color-ink);
-        }
-
-        nav a:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: var(--space-4xl) 0;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .hero-eyebrow {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-accent);
-            margin-bottom: var(--space-lg);
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
-            font-weight: 400;
-            font-style: normal;
-            line-height: 1.1;
-            color: var(--color-ink);
-            max-width: 800px;
-            margin-bottom: var(--space-lg);
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            color: var(--color-accent);
-        }
-
-        .hero-sub {
-            font-size: 1.125rem;
-            color: var(--color-ink-muted);
-            max-width: 500px;
-            margin-bottom: var(--space-2xl);
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: var(--color-accent);
-            color: var(--color-paper);
-            padding: var(--space-md) var(--space-xl);
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9375rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .hero-cta:hover,
-        .hero-cta:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px var(--color-glow);
-        }
-
-        .hero-cta:focus-visible {
-            outline: 2px solid var(--color-ink);
-            outline-offset: 2px;
-        }
-
-        /* Section headers */
-        .section-header {
-            margin-bottom: var(--space-2xl);
-        }
-
-        .section-eyebrow {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-accent);
-            margin-bottom: var(--space-sm);
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
-            font-weight: 400;
-            font-style: normal;
-            color: var(--color-ink);
-            line-height: 1.2;
-        }
-
-        /* Portfolio Grid */
-        .portfolio {
-            padding: var(--space-4xl) 0;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-lg);
-        }
-
-        .portfolio-card {
-            background: var(--color-paper-2);
-            border: 1px solid oklch(96% 0.006 262 / 0.06);
-            border-radius: 12px;
-            padding: var(--space-xl);
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 24px 60px -28px oklch(0% 0 0 / 0.55);
-            border-color: oklch(96% 0.006 262 / 0.12);
-        }
-
-        .card-eyebrow {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-accent);
-            margin-bottom: var(--space-md);
-        }
-
-        .card-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 400;
-            font-style: normal;
-            color: var(--color-ink);
-            margin-bottom: var(--space-md);
-            line-height: 1.3;
-        }
-
-        .card-desc {
-            font-size: 0.9375rem;
-            color: var(--color-ink-muted);
-            margin-bottom: var(--space-lg);
-            flex: 1;
-        }
-
-        .card-video {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            margin-bottom: var(--space-lg);
-            border-radius: 8px;
-        }
-
-        .card-video iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-        }
-
-        .card-tag {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-ink-muted);
-            background: var(--color-paper-3);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 4px;
-        }
-
-        .card-link {
-            font-family: var(--font-mono);
-            font-size: 0.8125rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-accent);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            transition: gap 0.2s;
-        }
-
-        .card-link:hover,
-        .card-link:focus-visible {
-            gap: var(--space-sm);
-        }
-
-        .card-link:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        .card-link::after {
-            content: '→';
-        }
-
-        /* Services */
-        .services {
-            padding: var(--space-4xl) 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-lg);
-        }
-
-        .service-card {
-            background: var(--color-paper-2);
-            border: 1px solid oklch(96% 0.006 262 / 0.06);
-            border-radius: 12px;
-            padding: var(--space-xl);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 24px 60px -28px oklch(0% 0 0 / 0.55);
-        }
-
-        .service-icon {
-            font-size: 1.5rem;
-            margin-bottom: var(--space-md);
-        }
-
-        .service-title {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 400;
-            font-style: normal;
-            color: var(--color-ink);
-            margin-bottom: var(--space-sm);
-        }
-
-        .service-desc {
-            font-size: 0.875rem;
-            color: var(--color-ink-muted);
-        }
-
-        /* About */
-        .about {
-            padding: var(--space-4xl) 0;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-2xl);
-            align-items: center;
-        }
-
-        .about-text p {
-            font-size: 1.0625rem;
-            color: var(--color-ink-muted);
-            margin-bottom: var(--space-md);
-        }
-
-        .about-text p:first-child {
-            font-size: 1.25rem;
-            color: var(--color-ink);
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-lg);
-        }
-
-        .stat {
-            background: var(--color-paper-2);
-            border: 1px solid oklch(96% 0.006 262 / 0.06);
-            border-radius: 12px;
-            padding: var(--space-lg);
-            text-align: center;
-        }
-
-        .stat-value {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 500;
-            color: var(--color-accent);
-            margin-bottom: var(--space-xs);
-        }
-
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-ink-muted);
-        }
-
-        /* CTA */
-        .cta {
-            padding: var(--space-4xl) 0;
-            text-align: center;
-        }
-
-        .cta-box {
-            background: var(--color-paper-2);
-            border: 1px solid oklch(96% 0.006 262 / 0.06);
-            border-radius: 16px;
-            padding: var(--space-3xl);
-        }
-
-        .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
-            font-weight: 400;
-            font-style: normal;
-            color: var(--color-ink);
-            margin-bottom: var(--space-md);
-        }
-
-        .cta-desc {
-            font-size: 1.0625rem;
-            color: var(--color-ink-muted);
-            margin-bottom: var(--space-xl);
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: var(--color-accent);
-            color: var(--color-paper);
-            padding: var(--space-md) var(--space-xl);
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9375rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta-button:hover,
-        .cta-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px var(--color-glow);
-        }
-
-        .cta-button:focus-visible {
-            outline: 2px solid var(--color-ink);
-            outline-offset: 2px;
-        }
-
-        /* Footer — Ft5 Statement */
-        footer {
-            padding: var(--space-2xl) 0;
-            text-align: center;
-            border-top: 1px solid oklch(96% 0.006 262 / 0.06);
-        }
-
-        footer p {
-            font-family: var(--font-display);
-            font-size: 1.125rem;
-            font-style: normal;
-            color: var(--color-ink-muted);
-        }
-
-        footer .footer-mono {
-            font-family: var(--font-mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-ink-muted);
-            margin-top: var(--space-md);
-            opacity: 0.6;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        .fade-in-delay-1 { animation-delay: 0.1s; }
-        .fade-in-delay-2 { animation-delay: 0.2s; }
-        .fade-in-delay-3 { animation-delay: 0.3s; }
-        .fade-in-delay-4 { animation-delay: 0.4s; }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            nav {
-                top: var(--space-md);
-                padding: var(--space-sm) var(--space-md);
-                gap: var(--space-md);
-            }
-
-            nav .brand {
-                font-size: 0.6875rem;
-            }
-
-            nav a {
-                font-size: 0.8125rem;
-            }
-
-            .hero {
-                min-height: 60vh;
-                padding: var(--space-3xl) 0;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stat-value {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 375px) {
-            .container {
-                padding: 0 var(--space-md);
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .portfolio-card {
-                padding: var(--space-lg);
-            }
-        }
-    </style>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Nav — N5 Floating pill -->
-    <nav>
-        <span class="brand">Andrzej Dobry</span>
-        <a href="#portfolio">portfolio</a>
-        <a href="#services">usługi</a>
-        <a href="#about">o mnie</a>
-        <a href="#contact">kontakt</a>
+
+    <!-- ========================================
+         Navigation
+         ======================================== -->
+    <nav class="nav" role="navigation" aria-label="Główna nawigacja">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">Andrzej Dobry</a>
+
+            <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-links">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" class="nav-toggle-line nav-toggle-line--top"></line>
+                    <line x1="3" y1="12" x2="21" y2="12" class="nav-toggle-line nav-toggle-line--mid"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" class="nav-toggle-line nav-toggle-line--bot"></line>
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#services">Usługi</a></li>
+                <li><a href="#about">O mnie</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container">
-        <!-- Hero -->
+    <!-- Mobile overlay -->
+    <div class="nav-overlay" aria-hidden="true"></div>
+
+    <!-- ========================================
+         Hero
+         ======================================== -->
+    <main>
         <section class="hero">
-            <span class="hero-eyebrow fade-in">Andrzej Dobry · programista · automatyzacja z ai</span>
-            <h1 class="fade-in fade-in-delay-1">buduję rozwiązania, które oszczędzają <em>czas</em></h1>
-            <p class="hero-sub fade-in fade-in-delay-2">programista full-stack z 7.5-letnim doświadczeniem. tworzę automatyzacje procesów biznesowych z wykorzystaniem ai.</p>
-            <a href="#contact" class="hero-cta fade-in fade-in-delay-3">porozmawiajmy</a>
+            <div class="container">
+                <span class="hero-eyebrow">Andrzej Dobry · Programista · Automatyzacja z AI</span>
+                <h1>Buduję rozwiązania, które oszczędzają <em>czas</em></h1>
+                <p class="hero-sub">Programista full-stack z 7.5-letnim doświadczeniem. Tworzę automatyzacje procesów biznesowych z wykorzystaniem AI.</p>
+                <a href="#contact" class="hero-cta">Porozmawiajmy</a>
+            </div>
+
+            <div class="hero-scroll" aria-hidden="true">
+                <span>Scroll</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7"></path>
+                </svg>
+            </div>
         </section>
 
-        <!-- Portfolio Grid -->
+        <!-- ========================================
+             Portfolio
+             ======================================== -->
         <section id="portfolio" class="portfolio">
-            <div class="section-header">
-                <span class="section-eyebrow">wybrane projekty</span>
-                <h2 class="section-title">prace, które mówią same za siebie</h2>
-            </div>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Wybrane projekty</span>
+                    <h2 class="section-title">Prace, które mówią same za siebie</h2>
+                </div>
 
-            <div class="portfolio-grid">
-                <article class="portfolio-card fade-in">
-                    <span class="card-eyebrow">case study 01</span>
-                    <h3 class="card-title">automatyczna prognoza pogody z ai</h3>
-                    <div class="card-video">
-                        <video controls width="100%">
-                            <source src="demo-pogoda.mp4?v=1" type="video/mp4">
-                            Twoja przeglądarka nie obsługuje wideo.
-                        </video>
-                    </div>
-                    <p class="card-desc">chatbot pogodowy z ai. wpisujesz miasto → dostajesz czytelną prognozę na 3 dni z automatycznymi ostrzeżeniemi. codzienna prognoza o 8:00 na discord.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">n8n</span>
-                        <span class="card-tag">openai</span>
-                        <span class="card-tag">discord</span>
-                        <span class="card-tag">wttr.in api</span>
-                    </div>
-                    <a href="#" class="card-link">zobacz demo</a>
-                </article>
+                <div class="portfolio-grid">
+                    <!-- Card 1 -->
+                    <article class="portfolio-card">
+                        <span class="card-eyebrow">Case Study 01</span>
+                        <h3 class="card-title">Automatyczna prognoza pogody z AI</h3>
+                        <div class="card-animation" aria-label="Animacja automatyzacji"></div>
+                        <p class="card-desc">Chatbot pogodowy z AI. Wpisujesz miasto → dostajesz czytelną prognozę na 3 dni z automatycznymi ostrzeżeniami. Codzienna prognoza o 8:00 na Discord.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">n8n</span>
+                            <span class="card-tag">OpenAI</span>
+                            <span class="card-tag">Discord</span>
+                            <span class="card-tag">wttr.in API</span>
+                        </div>
+                        <a href="#" class="card-link">Zobacz demo</a>
+                    </article>
 
-                <article class="portfolio-card fade-in fade-in-delay-1">
-                    <span class="card-eyebrow">case study 02</span>
-                    <h3 class="card-title">monitoring turniejów squasha</h3>
-                    <p class="card-desc">automatyczne śledzenie turniejów w okolicy, powiadomienia o nowych wydarzeniach, rankingi i statystyki graczy.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">n8n</span>
-                        <span class="card-tag">api</span>
-                        <span class="card-tag">discord</span>
-                    </div>
-                    <a href="#" class="card-link">zobacz demo</a>
-                </article>
+                    <!-- Card 2 -->
+                    <article class="portfolio-card">
+                        <span class="card-eyebrow">Case Study 02</span>
+                        <h3 class="card-title">Monitoring turniejów squasha</h3>
+                        <div class="card-animation" aria-label="Animacja automatyzacji"></div>
+                        <p class="card-desc">Automatyczne śledzenie turniejów w okolicy, powiadomienia o nowych wydarzeniach, rankingi i statystyki graczy.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">n8n</span>
+                            <span class="card-tag">API</span>
+                            <span class="card-tag">Discord</span>
+                        </div>
+                        <a href="#" class="card-link">Zobacz demo</a>
+                    </article>
 
-                <article class="portfolio-card fade-in fade-in-delay-2">
-                    <span class="card-eyebrow">case study 03</span>
-                    <h3 class="card-title">automatyczny raport tygodniowy</h3>
-                    <p class="card-desc">zbieranie danych z 5 źródeł → ai podsumowanie → pdf na maila. zero ręcznej pracy, spójny format co tydzień.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">n8n</span>
-                        <span class="card-tag">openai</span>
-                        <span class="card-tag">pdf</span>
-                    </div>
-                    <a href="#" class="card-link">zobacz demo</a>
-                </article>
+                    <!-- Card 3 -->
+                    <article class="portfolio-card">
+                        <span class="card-eyebrow">Case Study 03</span>
+                        <h3 class="card-title">Automatyczny raport tygodniowy</h3>
+                        <div class="card-animation" aria-label="Animacja automatyzacji"></div>
+                        <p class="card-desc">Zbieranie danych z 5 źródeł → AI podsumowanie → PDF na maila. Zero ręcznej pracy, spójny format co tydzień.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">n8n</span>
+                            <span class="card-tag">OpenAI</span>
+                            <span class="card-tag">PDF</span>
+                        </div>
+                        <a href="#" class="card-link">Zobacz demo</a>
+                    </article>
 
-                <article class="portfolio-card fade-in fade-in-delay-3">
-                    <span class="card-eyebrow">case study 04</span>
-                    <h3 class="card-title">integracja systemów crm</h3>
-                    <p class="card-desc">middleware łączący formularz na stronie z crm, arkuszem kalkulacyjnym i systemem email. dane przepływają automatycznie.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">n8n</span>
-                        <span class="card-tag">google sheets</span>
-                        <span class="card-tag">gmail api</span>
-                    </div>
-                    <a href="#" class="card-link">zobacz demo</a>
-                </article>
+                    <!-- Card 4 -->
+                    <article class="portfolio-card">
+                        <span class="card-eyebrow">Case Study 04</span>
+                        <h3 class="card-title">Integracja systemów CRM</h3>
+                        <div class="card-animation" aria-label="Animacja automatyzacji"></div>
+                        <p class="card-desc">Middleware łączący formularz na stronie z CRM, arkuszem kalkulacyjnym i systemem email. Dane przepływają automatycznie.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">n8n</span>
+                            <span class="card-tag">Google Sheets</span>
+                            <span class="card-tag">Gmail API</span>
+                        </div>
+                        <a href="#" class="card-link">Zobacz demo</a>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <!-- Services -->
+        <!-- ========================================
+             Services
+             ======================================== -->
         <section id="services" class="services">
-            <div class="section-header">
-                <span class="section-eyebrow">co mogę zrobić</span>
-                <h2 class="section-title">usługi dopasowane do twoich potrzeb</h2>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">⚙️</div>
-                    <h3 class="service-title">automatyzacja procesów</h3>
-                    <p class="service-desc">powtarzalne zadania? zbuduję automatyzację, która je wykona za ciebie.</p>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Co mogę zrobić</span>
+                    <h2 class="section-title">Usługi dopasowane do Twoich potrzeb</h2>
                 </div>
 
-                <div class="service-card fade-in fade-in-delay-1">
-                    <div class="service-icon">📊</div>
-                    <h3 class="service-title">automatyczne raporty</h3>
-                    <p class="service-desc">raporty z wielu źródeł w pdf — bez ręcznego zbierania danych.</p>
-                </div>
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Automatyzacja procesów</h3>
+                        <p class="service-desc">Powtarzalne zadania? Zbuduję automatyzację, która je wykona za Ciebie.</p>
+                    </div>
 
-                <div class="service-card fade-in fade-in-delay-2">
-                    <div class="service-icon">🔗</div>
-                    <h3 class="service-title">integracje systemów</h3>
-                    <p class="service-desc">twoje systemy nie współpracują? zbuduję most między nimi.</p>
-                </div>
+                    <!-- Service 2 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Automatyczne raporty</h3>
+                        <p class="service-desc">Raporty z wielu źródeł w PDF — bez ręcznego zbierania danych.</p>
+                    </div>
 
-                <div class="service-card fade-in fade-in-delay-3">
-                    <div class="service-icon">🔔</div>
-                    <h3 class="service-title">alerty i powiadomienia</h3>
-                    <p class="service-desc">dostaniesz powiadomienie, gdy coś ważnego się wydarzy.</p>
+                    <!-- Service 3 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Integracje systemów</h3>
+                        <p class="service-desc">Twoje systemy nie współpracują? Zbuduję most między nimi.</p>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Alerty i powiadomienia</h3>
+                        <p class="service-desc">Dostaniesz powiadomienie, gdy coś ważnego się wydarzy.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- About -->
+        <!-- ========================================
+             About
+             ======================================== -->
         <section id="about" class="about">
-            <div class="section-header">
-                <span class="section-eyebrow">o mnie</span>
-                <h2 class="section-title">doświadczenie, które pracuje na ciebie</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-text">
-                    <p>nazywam się <strong>Andrzej Dobry</strong>. jestem programistą full-stack z 7.5-letnim doświadczeniem.</p>
-                    <p>pracowałem w startupie i dużej korporacji. java, angular, docker, ci/cd — to moje codzienne narzędzia.</p>
-                    <p>teraz buduję rozwiązania automatyzacji z wykorzystaniem ai. łączę wiedzę techniczną z zrozumieniem biznesu — potrafię rozmawiać z klientami, rozumieć ich problemy i proponować rozwiązania, które naprawdę działają.</p>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">O mnie</span>
+                    <h2 class="section-title">Doświadczenie, które pracuje na Ciebie</h2>
                 </div>
 
-                <div class="about-stats">
-                    <div class="stat fade-in">
-                        <div class="stat-value">7.5</div>
-                        <div class="stat-label">lat doświadczenia</div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Nazywam się <strong>Andrzej Dobry</strong>. Jestem programistą full-stack z 7.5-letnim doświadczeniem.</p>
+                        <p>Pracowałem w startupie i dużej korporacji. Java, Angular, Docker, CI/CD — to moje codzienne narzędzia.</p>
+                        <p>Teraz buduję rozwiązania automatyzacji z wykorzystaniem AI. Łączę wiedzę techniczną z zrozumieniem biznesu — potrafię rozmawiać z klientami, rozumieć ich problemy i proponować rozwiązania, które naprawdę działają.</p>
                     </div>
-                    <div class="stat fade-in fade-in-delay-1">
-                        <div class="stat-value">10+</div>
-                        <div class="stat-label">narzędzi</div>
-                    </div>
-                    <div class="stat fade-in fade-in-delay-2">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">zdalnie</div>
-                    </div>
-                    <div class="stat fade-in fade-in-delay-3">
-                        <div class="stat-value">24h</div>
-                        <div class="stat-label">czas odpowiedzi</div>
+
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-value">7.5</div>
+                            <div class="stat-label">Lat doświadczenia</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">10+</div>
+                            <div class="stat-label">Narzędzi</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Zdalnie</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24h</div>
+                            <div class="stat-label">Czas odpowiedzi</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
+        <!-- ========================================
+             CTA
+             ======================================== -->
         <section id="contact" class="cta">
-            <div class="cta-box">
-                <h2 class="cta-title">masz proces, który zajmuje za dużo czasu?</h2>
-                <p class="cta-desc">napisz do mnie. porozmawiamy o tym, co da się zautomatyzować.</p>
-                <a href="mailto:dobry.andrzejit@gmail.com" class="cta-button">napisz do mnie</a>
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="cta-title">Masz proces, który zajmuje za dużo czasu?</h2>
+                    <p class="cta-desc">Napisz do mnie. Porozmawiamy o tym, co da się zautomatyzować.</p>
+                    <a href="mailto:dobry.andrzejit@gmail.com" class="cta-button">Napisz do mnie</a>
+                </div>
             </div>
         </section>
-    </div>
+    </main>
 
-    <!-- Footer — Ft5 Statement -->
-    <footer>
-        <p>automatyzacja to nie koszt. to inwestycja.</p>
-        <p class="footer-mono">© 2026 · Andrzej Dobry · automatyzacja procesów biznesowych</p>
+    <!-- ========================================
+         Footer
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>Automatyzacja to nie koszt. To inwestycja.</p>
+            <p class="footer-mono">© 2026 · Andrzej Dobry · Automatyzacja Procesów Biznesowych</p>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
