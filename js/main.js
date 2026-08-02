@@ -261,18 +261,35 @@ function initWorkflowAnimations() {
     });
 }
 
-/* Animation: Node Flow (data flowing between nodes) */
+/* Animation: n8n Weather Workflow (exact structure from screenshot) */
 function drawNodeFlow(ctx, w, h, time) {
+    // n8n workflow nodes - exact structure
+    const nodeW = 72;
+    const nodeH = 32;
     const nodes = [
-        { x: w * 0.15, y: h * 0.5, r: 16, label: 'API' },
-        { x: w * 0.4, y: h * 0.3, r: 20, label: 'n8n' },
-        { x: w * 0.4, y: h * 0.7, r: 14, label: 'AI' },
-        { x: w * 0.65, y: h * 0.5, r: 18, label: 'Data' },
-        { x: w * 0.85, y: h * 0.5, r: 16, label: 'Out' },
+        // Triggers (left side, stacked)
+        { x: w * 0.08, y: h * 0.3, w: nodeW, h: nodeH, label: 'Chat\nTrigger', type: 'trigger' },
+        { x: w * 0.08, y: h * 0.7, w: nodeW, h: nodeH, label: 'Schedule\nTrigger', type: 'trigger' },
+        // Edit Fields
+        { x: w * 0.28, y: h * 0.5, w: nodeW, h: nodeH, label: 'Edit\nFields', type: 'process' },
+        // HTTP Request
+        { x: w * 0.48, y: h * 0.5, w: nodeW, h: nodeH, label: 'HTTP\nRequest', type: 'process' },
+        // AI Agent
+        { x: w * 0.68, y: h * 0.5, w: nodeW, h: nodeH, label: 'AI\nAgent', type: 'ai' },
+        // OpenAI Chat Model (below AI Agent)
+        { x: w * 0.68, y: h * 0.85, w: nodeW, h: nodeH, label: 'OpenAI\nChat Model', type: 'model' },
+        // Discord output
+        { x: w * 0.88, y: h * 0.5, w: nodeW, h: nodeH, label: 'HTTP Req1\n(Discord)', type: 'output' },
     ];
 
+    // Connections: [from, to]
     const connections = [
-        [0, 1], [0, 2], [1, 3], [2, 3], [3, 4]
+        [0, 2], // Chat Trigger -> Edit Fields
+        [1, 2], // Schedule Trigger -> Edit Fields
+        [2, 3], // Edit Fields -> HTTP Request
+        [3, 4], // HTTP Request -> AI Agent
+        [4, 6], // AI Agent -> Discord
+        [5, 4], // OpenAI Chat Model -> AI Agent
     ];
 
     // Draw connections
@@ -280,48 +297,83 @@ function drawNodeFlow(ctx, w, h, time) {
         const a = nodes[from];
         const b = nodes[to];
 
+        const startX = from === 5 ? a.x : a.x + a.w / 2;
+        const startY = from === 5 ? a.y : a.y;
+        const endX = to === 5 ? b.x : b.x - b.w / 2;
+        const endY = to === 5 ? b.y : b.y;
+
         ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = `oklch(72% 0.01 262 / 0.2)`;
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.strokeStyle = 'oklch(72% 0.01 262 / 0.25)';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // Animated particle
-        const progress = ((time * 0.5 + from * 0.3) % 1);
-        const px = a.x + (b.x - a.x) * progress;
-        const py = a.y + (b.y - a.y) * progress;
+        // Animated data packet
+        const progress = ((time * 0.6 + from * 0.2) % 1);
+        const px = startX + (endX - startX) * progress;
+        const py = startY + (endY - startY) * progress;
 
+        // Glow
+        const glowR = 8 + Math.sin(time * 4) * 2;
+        const gradient = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+        gradient.addColorStop(0, 'oklch(76% 0.17 50 / 0.8)');
+        gradient.addColorStop(1, 'oklch(76% 0.17 50 / 0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(px, py, glowR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Packet
         ctx.beginPath();
         ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `oklch(76% 0.17 50 / ${0.6 + Math.sin(time * 3) * 0.3})`;
+        ctx.fillStyle = 'oklch(96% 0.006 262)';
         ctx.fill();
     });
 
     // Draw nodes
     nodes.forEach((node, i) => {
-        // Glow
-        const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.r * 2);
-        gradient.addColorStop(0, 'oklch(76% 0.17 50 / 0.15)');
-        gradient.addColorStop(1, 'oklch(76% 0.17 50 / 0)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(node.x - node.r * 2, node.y - node.r * 2, node.r * 4, node.r * 4);
+        const pulse = Math.sin(time * 2 + i * 0.7) * 0.5 + 0.5;
 
-        // Node circle
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        // Node background
         ctx.fillStyle = 'oklch(19% 0.014 265)';
+        roundRect(ctx, node.x - node.w / 2, node.y - node.h / 2, node.w, node.h, 6);
         ctx.fill();
-        ctx.strokeStyle = `oklch(76% 0.17 50 / ${0.5 + Math.sin(time * 2 + i) * 0.3})`;
+
+        // Border with type-based color
+        let borderColor;
+        switch (node.type) {
+            case 'trigger':
+                borderColor = 'oklch(65% 0.15 150)'; // Green
+                break;
+            case 'ai':
+            case 'model':
+                borderColor = 'oklch(65% 0.15 250)'; // Blue
+                break;
+            case 'output':
+                borderColor = 'oklch(76% 0.17 50)'; // Orange accent
+                break;
+            default:
+                borderColor = `oklch(76% 0.17 50 / ${0.4 + pulse * 0.4})`;
+        }
+
+        ctx.strokeStyle = borderColor;
         ctx.lineWidth = 1.5;
+        roundRect(ctx, node.x - node.w / 2, node.y - node.h / 2, node.w, node.h, 6);
         ctx.stroke();
 
         // Label
-        ctx.font = '10px "Geist Mono", monospace';
-        ctx.fillStyle = 'oklch(76% 0.17 50)';
+        ctx.font = '9px "Geist Mono", monospace';
+        ctx.fillStyle = 'oklch(96% 0.006 262 / 0.9)';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(node.label, node.x, node.y);
+
+        const lines = node.label.split('\n');
+        const lineHeight = 11;
+        const startY = node.y - ((lines.length - 1) * lineHeight) / 2;
+        lines.forEach((line, li) => {
+            ctx.fillText(line, node.x, startY + li * lineHeight);
+        });
     });
 }
 

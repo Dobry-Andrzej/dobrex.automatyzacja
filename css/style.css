@@ -200,6 +200,24 @@ body::after {
     stroke: var(--color-accent);
 }
 
+/* Hamburger to X animation */
+.nav-toggle-line {
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line--top {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line--mid {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line--bot {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
 /* ========================================
    5. Hero
    ======================================== */
