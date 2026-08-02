@@ -79,62 +79,61 @@
                         <span class="card-eyebrow">Case Study 01</span>
                         <h3 class="card-title">Automatyczna prognoza pogody z AI</h3>
                         <div class="card-animation workflow-animation" aria-label="Animacja automatyzacji">
-                            <svg class="workflow-svg" viewBox="0 0 740 280" preserveAspectRatio="none" role="img" aria-label="Workflow n8n prognozy pogody">
+                            <svg class="workflow-svg" viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Workflow n8n prognozy pogody">
                                 <!-- Connection lines -->
-                                <path class="workflow-line" id="line-trigger-chat" d="M130,80 L230,140" />
-                                <path class="workflow-line" id="line-trigger-schedule" d="M130,200 L230,140" />
-                                <path class="workflow-line" id="line-edit-http" d="M310,140 L380,140" />
-                                <path class="workflow-line" id="line-http-ai" d="M460,140 L520,140" />
-                                <path class="workflow-line" id="line-openai-ai" d="M560,230 L560,180" />
-                                <path class="workflow-line" id="line-ai-discord" d="M620,140 L660,140" />
+                                <path class="workflow-line" id="line-trigger-chat" d="M160,75 C185,75 185,155 210,155" />
+                                <path class="workflow-line" id="line-trigger-schedule" d="M160,235 C185,235 185,155 210,155" />
+                                <path class="workflow-line" id="line-edit-http" d="M340,155 H390" />
+                                <path class="workflow-line" id="line-http-ai" d="M540,155 H590" />
+                                <path class="workflow-line" id="line-openai-ai" d="M650,250 V190" />
+                                <path class="workflow-line" id="line-ai-discord" d="M710,155 H760" />
 
                                 <!-- Nodes -->
                                 <g class="workflow-node node-trigger" data-node="chat-trigger">
-                                    <rect x="30" y="50" width="100" height="56" rx="8" />
-                                    <text x="80" y="74" class="node-icon">&#x1F4AC;</text>
-                                    <text x="80" y="94" class="node-label">Chat Trigger</text>
+                                    <rect x="20" y="40" width="140" height="70" rx="10" />
+                                    <text x="90" y="67" class="node-kicker">TRIGGER</text>
+                                    <text x="90" y="91" class="node-label">Chat message</text>
                                 </g>
 
                                 <g class="workflow-node node-trigger" data-node="schedule-trigger">
-                                    <rect x="30" y="170" width="100" height="56" rx="8" />
-                                    <text x="80" y="194" class="node-icon">&#x23F0;</text>
-                                    <text x="80" y="214" class="node-label">Schedule</text>
+                                    <rect x="20" y="200" width="140" height="70" rx="10" />
+                                    <text x="90" y="227" class="node-kicker">TRIGGER</text>
+                                    <text x="90" y="251" class="node-label">Schedule</text>
                                 </g>
 
                                 <g class="workflow-node node-process" data-node="edit-fields">
-                                    <rect x="230" y="108" width="80" height="64" rx="8" />
-                                    <text x="270" y="134" class="node-icon">&#x1F4DD;</text>
-                                    <text x="270" y="158" class="node-label">Edit Fields</text>
+                                    <rect x="210" y="120" width="130" height="70" rx="10" />
+                                    <text x="275" y="147" class="node-kicker">DATA</text>
+                                    <text x="275" y="171" class="node-label">Edit Fields</text>
                                 </g>
 
                                 <g class="workflow-node node-process" data-node="http-request">
-                                    <rect x="380" y="108" width="80" height="64" rx="8" />
-                                    <text x="420" y="134" class="node-icon">&#x1F310;</text>
-                                    <text x="420" y="158" class="node-label">HTTP Req</text>
+                                    <rect x="390" y="120" width="150" height="70" rx="10" />
+                                    <text x="465" y="147" class="node-kicker">WEATHER API</text>
+                                    <text x="465" y="171" class="node-label">HTTP Request</text>
                                 </g>
 
                                 <g class="workflow-node node-ai" data-node="ai-agent">
-                                    <rect x="520" y="108" width="100" height="64" rx="8" />
-                                    <text x="570" y="134" class="node-icon">&#x1F916;</text>
-                                    <text x="570" y="158" class="node-label">AI Agent</text>
+                                    <rect x="590" y="120" width="120" height="70" rx="10" />
+                                    <text x="650" y="147" class="node-kicker">PROCESS</text>
+                                    <text x="650" y="171" class="node-label">AI Agent</text>
                                 </g>
 
                                 <g class="workflow-node node-model" data-node="openai-model">
-                                    <rect x="520" y="200" width="80" height="56" rx="8" />
-                                    <text x="560" y="224" class="node-icon">&#x1F9E0;</text>
-                                    <text x="560" y="244" class="node-label">OpenAI</text>
+                                    <rect x="580" y="250" width="140" height="60" rx="10" />
+                                    <text x="650" y="274" class="node-kicker">MODEL</text>
+                                    <text x="650" y="296" class="node-label">OpenAI</text>
                                 </g>
 
                                 <g class="workflow-node node-output" data-node="discord">
-                                    <rect x="660" y="108" width="70" height="64" rx="8" />
-                                    <text x="695" y="134" class="node-icon">&#x1F4E8;</text>
-                                    <text x="695" y="158" class="node-label">Discord</text>
+                                    <rect x="760" y="120" width="120" height="70" rx="10" />
+                                    <text x="820" y="147" class="node-kicker">OUTPUT</text>
+                                    <text x="820" y="171" class="node-label">Discord</text>
                                 </g>
 
                                 <!-- Animated dots -->
                                 <circle class="workflow-dot" id="dot-1" r="7" cx="-10" cy="-10" />
                                 <circle class="workflow-dot" id="dot-2" r="7" cx="-10" cy="-10" />
-                                <circle class="workflow-dot" id="dot-3" r="7" cx="-10" cy="-10" />
                                 <circle class="workflow-dot" id="dot-openai" r="6" cx="-10" cy="-10" />
                             </svg>
                         </div>
@@ -322,8 +321,9 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="js/navigation.js?v=2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=2"></script>
 </body>
 </html>

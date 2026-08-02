@@ -105,7 +105,7 @@ body::after {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1000;
     background: oklch(13% 0.014 265 / 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -358,7 +358,7 @@ body::after {
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-lg);
 }
 
@@ -407,7 +407,7 @@ body::after {
 /* GSAP Animation Container */
 .card-animation {
     width: 100%;
-    height: 220px;
+    height: 260px;
     margin-bottom: var(--space-lg);
     border-radius: 8px;
     background: var(--color-paper-3);
@@ -459,17 +459,19 @@ body::after {
     pointer-events: none;
 }
 
-.node-icon {
-    font-size: 26px;
+.node-kicker {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--color-accent);
+    letter-spacing: 0.08em;
 }
 
 .node-label {
     font-family: var(--font-mono);
     font-size: 22px;
     font-weight: 500;
-    fill: var(--color-ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    fill: var(--color-ink);
 }
 
 /* Node type colors */
@@ -783,9 +785,11 @@ body::after {
     /* Hamburger menu */
     .nav-toggle {
         display: block;
+        touch-action: manipulation;
     }
 
     .nav-links {
+        display: flex;
         position: fixed;
         top: 0;
         right: 0;
@@ -860,11 +864,13 @@ body::after {
     }
 
     .workflow-animation .node-label {
-        font-size: 18px;
-    }
-
-    .workflow-animation .node-icon {
         font-size: 22px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
     }
 }
 

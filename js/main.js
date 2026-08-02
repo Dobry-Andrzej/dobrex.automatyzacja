@@ -4,73 +4,10 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initNavigation();
     initGSAPAnimations();
     initWorkflowAnimations();
     initWeatherWorkflow();
 });
-
-/* ========================================
-   1. Mobile Navigation
-   ======================================== */
-
-function initNavigation() {
-    const toggle = document.querySelector('.nav-toggle');
-    const links = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.nav-overlay');
-
-    if (!toggle || !links) return;
-
-    const openMenu = () => {
-        links.classList.add('is-open');
-        toggle.classList.add('is-active');
-        overlay?.classList.add('is-visible');
-        toggle.setAttribute('aria-expanded', 'true');
-        toggle.setAttribute('aria-label', 'Zamknij menu');
-        document.body.style.overflow = 'hidden';
-    };
-
-    const closeMenu = () => {
-        links.classList.remove('is-open');
-        toggle.classList.remove('is-active');
-        overlay?.classList.remove('is-visible');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Otwórz menu');
-        document.body.style.overflow = '';
-    };
-
-    toggle.addEventListener('click', (event) => {
-        event.preventDefault();
-        const isOpen = links.classList.contains('is-open');
-        isOpen ? closeMenu() : openMenu();
-    });
-
-    overlay?.addEventListener('click', closeMenu);
-
-    links.querySelectorAll('a').forEach(anchor => {
-        anchor.addEventListener('click', closeMenu);
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && links.classList.contains('is-open')) {
-            closeMenu();
-        }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const target = document.querySelector(anchor.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
-                const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                window.scrollTo({ top, behavior: 'smooth' });
-            }
-        });
-    });
-}
 
 /* ========================================
    2. GSAP ScrollTrigger Animations
@@ -558,7 +495,6 @@ function initWeatherWorkflow() {
 
     const dot1 = document.getElementById('dot-1');
     const dot2 = document.getElementById('dot-2');
-    const dot3 = document.getElementById('dot-3');
     const dotOpenAI = document.getElementById('dot-openai');
 
     const nodeEditFields = document.querySelector('[data-node="edit-fields"]');
