@@ -138,7 +138,7 @@ function initGSAPAnimations() {
    ======================================== */
 
 function initWorkflowAnimations() {
-    const containers = document.querySelectorAll('.card-animation:not(.workflow-animation)');
+    const containers = document.querySelectorAll('.card-animation');
 
     containers.forEach((container, index) => {
         const canvas = document.createElement('canvas');

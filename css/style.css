@@ -362,6 +362,11 @@ body::after {
     gap: var(--space-lg);
 }
 
+.portfolio-grid--single {
+    grid-template-columns: minmax(0, 760px);
+    justify-content: center;
+}
+
 .portfolio-card {
     background: var(--color-paper-2);
     border: 1px solid oklch(96% 0.006 262 / 0.06);

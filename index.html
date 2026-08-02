@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -73,70 +73,12 @@
                     <h2 class="section-title">Prace, które mówią same za siebie</h2>
                 </div>
 
-                <div class="portfolio-grid">
+                <div class="portfolio-grid portfolio-grid--single">
                     <!-- Card 1 -->
                     <article class="portfolio-card">
                         <span class="card-eyebrow">Case Study 01</span>
                         <h3 class="card-title">Automatyczna prognoza pogody z AI</h3>
-                        <div class="card-animation workflow-animation" aria-label="Animacja automatyzacji">
-                            <svg class="workflow-svg" viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Workflow n8n prognozy pogody">
-                                <!-- Connection lines -->
-                                <path class="workflow-line" id="line-trigger-chat" d="M160,75 C185,75 185,155 210,155" />
-                                <path class="workflow-line" id="line-trigger-schedule" d="M160,235 C185,235 185,155 210,155" />
-                                <path class="workflow-line" id="line-edit-http" d="M340,155 H390" />
-                                <path class="workflow-line" id="line-http-ai" d="M540,155 H590" />
-                                <path class="workflow-line" id="line-openai-ai" d="M650,250 V190" />
-                                <path class="workflow-line" id="line-ai-discord" d="M710,155 H760" />
-
-                                <!-- Nodes -->
-                                <g class="workflow-node node-trigger" data-node="chat-trigger">
-                                    <rect x="20" y="40" width="140" height="70" rx="10" />
-                                    <text x="90" y="67" class="node-kicker">TRIGGER</text>
-                                    <text x="90" y="91" class="node-label">Chat message</text>
-                                </g>
-
-                                <g class="workflow-node node-trigger" data-node="schedule-trigger">
-                                    <rect x="20" y="200" width="140" height="70" rx="10" />
-                                    <text x="90" y="227" class="node-kicker">TRIGGER</text>
-                                    <text x="90" y="251" class="node-label">Schedule</text>
-                                </g>
-
-                                <g class="workflow-node node-process" data-node="edit-fields">
-                                    <rect x="210" y="120" width="130" height="70" rx="10" />
-                                    <text x="275" y="147" class="node-kicker">DATA</text>
-                                    <text x="275" y="171" class="node-label">Edit Fields</text>
-                                </g>
-
-                                <g class="workflow-node node-process" data-node="http-request">
-                                    <rect x="390" y="120" width="150" height="70" rx="10" />
-                                    <text x="465" y="147" class="node-kicker">WEATHER API</text>
-                                    <text x="465" y="171" class="node-label">HTTP Request</text>
-                                </g>
-
-                                <g class="workflow-node node-ai" data-node="ai-agent">
-                                    <rect x="590" y="120" width="120" height="70" rx="10" />
-                                    <text x="650" y="147" class="node-kicker">PROCESS</text>
-                                    <text x="650" y="171" class="node-label">AI Agent</text>
-                                </g>
-
-                                <g class="workflow-node node-model" data-node="openai-model">
-                                    <rect x="580" y="250" width="140" height="60" rx="10" />
-                                    <text x="650" y="274" class="node-kicker">MODEL</text>
-                                    <text x="650" y="296" class="node-label">OpenAI</text>
-                                </g>
-
-                                <g class="workflow-node node-output" data-node="discord">
-                                    <rect x="760" y="120" width="120" height="70" rx="10" />
-                                    <text x="820" y="147" class="node-kicker">OUTPUT</text>
-                                    <text x="820" y="171" class="node-label">Discord</text>
-                                </g>
-
-                                <!-- Animated dots -->
-                                <circle class="workflow-dot" id="dot-1" r="7" cx="-10" cy="-10" />
-                                <circle class="workflow-dot" id="dot-2" r="7" cx="-10" cy="-10" />
-                                <circle class="workflow-dot" id="dot-openai" r="6" cx="-10" cy="-10" />
-                            </svg>
-                        </div>
+                        <div class="card-animation" aria-label="Animacja workflow n8n prognozy pogody"></div>
                         <p class="card-desc">Chatbot pogodowy z AI. Wpisujesz miasto → dostajesz czytelną prognozę na 3 dni z automatycznymi ostrzeżeniami. Codzienna prognoza o 8:00 na Discord.</p>
                         <div class="card-tags">
                             <span class="card-tag">n8n</span>
@@ -148,7 +90,7 @@
                     </article>
 
                     <!-- Card 2 -->
-                    <article class="portfolio-card">
+                    <article class="portfolio-card" hidden>
                         <span class="card-eyebrow">Case Study 02</span>
                         <h3 class="card-title">Monitoring turniejów squasha</h3>
                         <div class="card-animation" aria-label="Animacja automatyzacji"></div>
@@ -162,7 +104,7 @@
                     </article>
 
                     <!-- Card 3 -->
-                    <article class="portfolio-card">
+                    <article class="portfolio-card" hidden>
                         <span class="card-eyebrow">Case Study 03</span>
                         <h3 class="card-title">Automatyczny raport tygodniowy</h3>
                         <div class="card-animation" aria-label="Animacja automatyzacji"></div>
@@ -176,7 +118,7 @@
                     </article>
 
                     <!-- Card 4 -->
-                    <article class="portfolio-card">
+                    <article class="portfolio-card" hidden>
                         <span class="card-eyebrow">Case Study 04</span>
                         <h3 class="card-title">Integracja systemów CRM</h3>
                         <div class="card-animation" aria-label="Animacja automatyzacji"></div>
@@ -321,9 +263,9 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/navigation.js?v=2"></script>
+    <script src="js/navigation.js?v=3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=3"></script>
 </body>
 </html>
