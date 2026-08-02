@@ -441,9 +441,24 @@ body::after {
 /* Connection lines */
 .workflow-line {
     fill: none;
-    stroke: oklch(72% 0.01 262 / 0.3);
+    stroke: oklch(72% 0.01 262 / 0.2);
     stroke-width: 2;
     stroke-linecap: round;
+}
+
+.workflow-line--glow {
+    filter: drop-shadow(0 0 3px oklch(72% 0.01 262 / 0.15));
+}
+
+/* Progress paths (animated stroke) */
+.workflow-progress {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    filter: drop-shadow(0 0 6px var(--color-glow));
 }
 
 /* Nodes base */

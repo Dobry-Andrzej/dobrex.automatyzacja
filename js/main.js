@@ -503,13 +503,30 @@ function initWeatherWorkflow() {
     const nodeAIAgent = document.querySelector('[data-node="ai-agent"]');
     const nodeDiscord = document.querySelector('[data-node="discord"]');
 
+    const progTriggerChat = document.getElementById('prog-trigger-chat');
+    const progTriggerSchedule = document.getElementById('prog-trigger-schedule');
+    const progEditHttp = document.getElementById('prog-edit-http');
+    const progHttpAI = document.getElementById('prog-http-ai');
+    const progOpenaiAI = document.getElementById('prog-openai-ai');
+    const progAIDiscord = document.getElementById('prog-ai-discord');
+
     if (!dot1 || !nodeEditFields) return;
 
+    // Initialize progress paths
+    const initProgressPath = (path) => {
+        if (!path) return;
+        const len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+    };
+
+    [progTriggerChat, progTriggerSchedule, progEditHttp, progHttpAI, progOpenaiAI, progAIDiscord].forEach(initProgressPath);
+
     // Pulse node helper
-    const pulseNode = (node, duration = 0.4) => {
+    const pulseNode = (node, duration = 0.5) => {
         return gsap.timeline()
+            .call(() => node.classList.add('is-active'))
             .to(node, {
-                scale: 1.15,
+                scale: 1.12,
                 duration: duration / 2,
                 ease: 'power2.out',
                 transformOrigin: 'center center'
@@ -519,9 +536,21 @@ function initWeatherWorkflow() {
                 duration: duration / 2,
                 ease: 'power2.in'
             })
-            .call(() => node.classList.add('is-active'))
-            .to({}, { duration: 0.15 })
+            .to({}, { duration: 0.2 })
             .call(() => node.classList.remove('is-active'));
+    };
+
+    // Animate progress path
+    const animateProgress = (path, duration = 0.6) => {
+        if (!path) return gsap.timeline();
+        const len = path.getTotalLength();
+        return gsap.timeline()
+            .to(path, {
+                strokeDashoffset: 0,
+                duration,
+                ease: 'power2.inOut'
+            })
+            .set(path, { strokeDashoffset: len });
     };
 
     // Move dot along path helper
@@ -546,31 +575,37 @@ function initWeatherWorkflow() {
 
     // Build main timeline
     const buildTimeline = () => {
-        const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8 });
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
 
         // Step 1: Two dots from triggers to Edit Fields (simultaneous)
-        tl.add(moveDotAlongPath(dot1, 'line-trigger-chat', 0.7), 'step1');
-        tl.add(moveDotAlongPath(dot2, 'line-trigger-schedule', 0.7), 'step1');
+        tl.add(moveDotAlongPath(dot1, 'line-trigger-chat', 0.8), 'step1');
+        tl.add(moveDotAlongPath(dot2, 'line-trigger-schedule', 0.8), 'step1');
+        tl.add(animateProgress(progTriggerChat, 0.8), 'step1');
+        tl.add(animateProgress(progTriggerSchedule, 0.8), 'step1');
 
         // Step 2: Edit Fields pulses
-        tl.add(pulseNode(nodeEditFields), 'step1+=0.7');
+        tl.add(pulseNode(nodeEditFields), 'step1+=0.8');
 
         // Step 3: Dot from Edit Fields to HTTP Request
-        tl.add(moveDotAlongPath(dot1, 'line-edit-http', 0.5), 'step1+=1.3');
-        tl.add(pulseNode(nodeHTTPRequest), 'step1+=1.8');
+        tl.add(moveDotAlongPath(dot1, 'line-edit-http', 0.6), 'step1+=1.4');
+        tl.add(animateProgress(progEditHttp, 0.6), 'step1+=1.4');
+        tl.add(pulseNode(nodeHTTPRequest), 'step1+=2.0');
 
         // Step 4: Dot from HTTP Request to AI Agent
-        tl.add(moveDotAlongPath(dot1, 'line-http-ai', 0.5), 'step1+=2.0');
+        tl.add(moveDotAlongPath(dot1, 'line-http-ai', 0.6), 'step1+=2.2');
+        tl.add(animateProgress(progHttpAI, 0.6), 'step1+=2.2');
 
         // Step 5: Dot from OpenAI Model UP to AI Agent
-        tl.add(moveDotAlongPath(dotOpenAI, 'line-openai-ai', 0.5), 'step1+=2.5');
+        tl.add(moveDotAlongPath(dotOpenAI, 'line-openai-ai', 0.6), 'step1+=2.8');
+        tl.add(animateProgress(progOpenaiAI, 0.6), 'step1+=2.8');
 
         // Step 6: AI Agent pulses with strong glow
-        tl.add(pulseNode(nodeAIAgent, 0.6), 'step1+=3.0');
+        tl.add(pulseNode(nodeAIAgent, 0.7), 'step1+=3.4');
 
         // Step 7: Dot from AI Agent to Discord
-        tl.add(moveDotAlongPath(dot1, 'line-ai-discord', 0.5), 'step1+=3.5');
-        tl.add(pulseNode(nodeDiscord), 'step1+=4.0');
+        tl.add(moveDotAlongPath(dot1, 'line-ai-discord', 0.6), 'step1+=4.0');
+        tl.add(animateProgress(progAIDiscord, 0.6), 'step1+=4.0');
+        tl.add(pulseNode(nodeDiscord), 'step1+=4.6');
 
         return tl;
     };
