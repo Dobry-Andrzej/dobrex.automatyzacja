@@ -78,7 +78,66 @@
                     <article class="portfolio-card">
                         <span class="card-eyebrow">Case Study 01</span>
                         <h3 class="card-title">Automatyczna prognoza pogody z AI</h3>
-                        <div class="card-animation" aria-label="Animacja automatyzacji"></div>
+                        <div class="card-animation workflow-animation" aria-label="Animacja automatyzacji">
+                            <svg class="workflow-svg" viewBox="0 0 520 200" preserveAspectRatio="xMidYMid meet">
+                                <!-- Connection lines -->
+                                <path class="workflow-line" id="line-trigger-chat" d="M80,55 L160,100" />
+                                <path class="workflow-line" id="line-trigger-schedule" d="M80,145 L160,100" />
+                                <path class="workflow-line" id="line-edit-http" d="M220,100 L280,100" />
+                                <path class="workflow-line" id="line-http-ai" d="M340,100 L400,100" />
+                                <path class="workflow-line" id="line-openai-ai" d="M400,170 L400,130" />
+                                <path class="workflow-line" id="line-ai-discord" d="M460,100 L490,100" />
+
+                                <!-- Nodes -->
+                                <g class="workflow-node node-trigger" data-node="chat-trigger">
+                                    <rect x="20" y="35" width="60" height="40" rx="6" />
+                                    <text x="50" y="52" class="node-icon">&#x1F4AC;</text>
+                                    <text x="50" y="66" class="node-label">Chat</text>
+                                </g>
+
+                                <g class="workflow-node node-trigger" data-node="schedule-trigger">
+                                    <rect x="20" y="125" width="60" height="40" rx="6" />
+                                    <text x="50" y="142" class="node-icon">&#x23F0;</text>
+                                    <text x="50" y="156" class="node-label">Schedule</text>
+                                </g>
+
+                                <g class="workflow-node node-process" data-node="edit-fields">
+                                    <rect x="160" y="78" width="60" height="44" rx="6" />
+                                    <text x="190" y="96" class="node-icon">&#x1F4DD;</text>
+                                    <text x="190" y="112" class="node-label">Edit Fields</text>
+                                </g>
+
+                                <g class="workflow-node node-process" data-node="http-request">
+                                    <rect x="280" y="78" width="60" height="44" rx="6" />
+                                    <text x="310" y="96" class="node-icon">&#x1F310;</text>
+                                    <text x="310" y="112" class="node-label">HTTP Req</text>
+                                </g>
+
+                                <g class="workflow-node node-ai" data-node="ai-agent">
+                                    <rect x="370" y="78" width="60" height="44" rx="6" />
+                                    <text x="400" y="96" class="node-icon">&#x1F916;</text>
+                                    <text x="400" y="112" class="node-label">AI Agent</text>
+                                </g>
+
+                                <g class="workflow-node node-model" data-node="openai-model">
+                                    <rect x="370" y="150" width="60" height="40" rx="6" />
+                                    <text x="400" y="167" class="node-icon">&#x1F9E0;</text>
+                                    <text x="400" y="181" class="node-label">OpenAI</text>
+                                </g>
+
+                                <g class="workflow-node node-output" data-node="discord">
+                                    <rect x="460" y="78" width="50" height="44" rx="6" />
+                                    <text x="485" y="96" class="node-icon">&#x1F4E8;</text>
+                                    <text x="485" y="112" class="node-label">Discord</text>
+                                </g>
+
+                                <!-- Animated dots (hidden initially) -->
+                                <circle class="workflow-dot" id="dot-1" r="5" cx="-10" cy="-10" />
+                                <circle class="workflow-dot" id="dot-2" r="5" cx="-10" cy="-10" />
+                                <circle class="workflow-dot" id="dot-3" r="5" cx="-10" cy="-10" />
+                                <circle class="workflow-dot" id="dot-openai" r="4" cx="-10" cy="-10" />
+                            </svg>
+                        </div>
                         <p class="card-desc">Chatbot pogodowy z AI. Wpisujesz miasto → dostajesz czytelną prognozę na 3 dni z automatycznymi ostrzeżeniami. Codzienna prognoza o 8:00 na Discord.</p>
                         <div class="card-tags">
                             <span class="card-tag">n8n</span>

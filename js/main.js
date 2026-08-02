@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initGSAPAnimations();
     initWorkflowAnimations();
+    initWeatherWorkflow();
 });
 
 /* ========================================
@@ -196,7 +197,7 @@ function initGSAPAnimations() {
    ======================================== */
 
 function initWorkflowAnimations() {
-    const containers = document.querySelectorAll('.card-animation');
+    const containers = document.querySelectorAll('.card-animation:not(.workflow-animation)');
 
     containers.forEach((container, index) => {
         const canvas = document.createElement('canvas');
@@ -541,4 +542,113 @@ function roundRect(ctx, x, y, w, h, r) {
     ctx.lineTo(x, y + r);
     ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
+}
+
+/* ========================================
+   4. Weather Workflow Animation (SVG + GSAP)
+   ======================================== */
+
+function initWeatherWorkflow() {
+    const container = document.querySelector('.workflow-animation');
+    if (!container) return;
+
+    const dot1 = document.getElementById('dot-1');
+    const dot2 = document.getElementById('dot-2');
+    const dot3 = document.getElementById('dot-3');
+    const dotOpenAI = document.getElementById('dot-openai');
+
+    const nodeEditFields = document.querySelector('[data-node="edit-fields"]');
+    const nodeHTTPRequest = document.querySelector('[data-node="http-request"]');
+    const nodeAIAgent = document.querySelector('[data-node="ai-agent"]');
+    const nodeDiscord = document.querySelector('[data-node="discord"]');
+
+    if (!dot1 || !nodeEditFields) return;
+
+    // Pulse node helper
+    const pulseNode = (node, duration = 0.4) => {
+        return gsap.timeline()
+            .to(node, {
+                scale: 1.15,
+                duration: duration / 2,
+                ease: 'power2.out',
+                transformOrigin: 'center center'
+            })
+            .to(node, {
+                scale: 1,
+                duration: duration / 2,
+                ease: 'power2.in'
+            })
+            .call(() => node.classList.add('is-active'))
+            .to({}, { duration: 0.15 })
+            .call(() => node.classList.remove('is-active'));
+    };
+
+    // Move dot along path helper
+    const moveDotAlongPath = (dot, pathId, duration = 0.6) => {
+        const path = document.getElementById(pathId);
+        if (!path) return gsap.timeline();
+        const len = path.getTotalLength();
+
+        return gsap.timeline()
+            .set(dot, { opacity: 1 })
+            .to({ progress: 0 }, {
+                progress: 1,
+                duration,
+                ease: 'power2.inOut',
+                onUpdate: function() {
+                    const pt = path.getPointAtLength(len * this.targets()[0].progress);
+                    gsap.set(dot, { attr: { cx: pt.x, cy: pt.y } });
+                }
+            })
+            .set(dot, { opacity: 0 });
+    };
+
+    // Build main timeline
+    const buildTimeline = () => {
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8 });
+
+        // Step 1: Two dots from triggers to Edit Fields (simultaneous)
+        tl.add(moveDotAlongPath(dot1, 'line-trigger-chat', 0.7), 'step1');
+        tl.add(moveDotAlongPath(dot2, 'line-trigger-schedule', 0.7), 'step1');
+
+        // Step 2: Edit Fields pulses
+        tl.add(pulseNode(nodeEditFields), 'step1+=0.7');
+
+        // Step 3: Dot from Edit Fields to HTTP Request
+        tl.add(moveDotAlongPath(dot1, 'line-edit-http', 0.5), 'step1+=1.3');
+        tl.add(pulseNode(nodeHTTPRequest), 'step1+=1.8');
+
+        // Step 4: Dot from HTTP Request to AI Agent
+        tl.add(moveDotAlongPath(dot1, 'line-http-ai', 0.5), 'step1+=2.0');
+
+        // Step 5: Dot from OpenAI Model UP to AI Agent
+        tl.add(moveDotAlongPath(dotOpenAI, 'line-openai-ai', 0.5), 'step1+=2.5');
+
+        // Step 6: AI Agent pulses with strong glow
+        tl.add(pulseNode(nodeAIAgent, 0.6), 'step1+=3.0');
+
+        // Step 7: Dot from AI Agent to Discord
+        tl.add(moveDotAlongPath(dot1, 'line-ai-discord', 0.5), 'step1+=3.5');
+        tl.add(pulseNode(nodeDiscord), 'step1+=4.0');
+
+        return tl;
+    };
+
+    // Start animation when visible
+    let mainTimeline;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!mainTimeline) {
+                    mainTimeline = buildTimeline();
+                } else {
+                    mainTimeline.play();
+                }
+            } else {
+                if (mainTimeline) mainTimeline.pause();
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(container);
 }

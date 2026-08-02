@@ -419,6 +419,97 @@ body::after {
     height: 100%;
 }
 
+/* ========================================
+   Workflow Animation (n8n SVG)
+   ======================================== */
+
+.workflow-animation {
+    padding: var(--space-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.workflow-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 180px;
+}
+
+/* Connection lines */
+.workflow-line {
+    fill: none;
+    stroke: oklch(72% 0.01 262 / 0.25);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+/* Nodes base */
+.workflow-node rect {
+    fill: var(--color-paper);
+    stroke: oklch(72% 0.01 262 / 0.3);
+    stroke-width: 1.5;
+    transition: stroke 0.3s, filter 0.3s;
+}
+
+.workflow-node text {
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.node-icon {
+    font-size: 12px;
+}
+
+.node-label {
+    font-family: var(--font-mono);
+    font-size: 7px;
+    fill: var(--color-ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Node type colors */
+.node-trigger rect {
+    stroke: oklch(65% 0.15 150);
+}
+
+.node-process rect {
+    stroke: oklch(72% 0.01 262 / 0.4);
+}
+
+.node-ai rect {
+    stroke: oklch(65% 0.15 250);
+}
+
+.node-model rect {
+    stroke: oklch(65% 0.15 250 / 0.6);
+}
+
+.node-output rect {
+    stroke: var(--color-accent);
+}
+
+/* Node pulse state */
+.workflow-node.is-active rect {
+    filter: drop-shadow(0 0 8px var(--color-glow));
+}
+
+.workflow-node.is-active.node-ai rect {
+    filter: drop-shadow(0 0 12px oklch(65% 0.15 250 / 0.6));
+}
+
+/* Animated dots */
+.workflow-dot {
+    fill: var(--color-accent);
+    filter: drop-shadow(0 0 6px var(--color-glow));
+    opacity: 0;
+}
+
+.workflow-dot.is-visible {
+    opacity: 1;
+}
+
 .card-tags {
     display: flex;
     flex-wrap: wrap;
