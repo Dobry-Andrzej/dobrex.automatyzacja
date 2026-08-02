@@ -18,32 +18,36 @@ function initNavigation() {
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
     const overlay = document.querySelector('.nav-overlay');
-    const navAnchors = document.querySelectorAll('.nav-links a');
 
     if (!toggle || !links) return;
 
     const openMenu = () => {
         links.classList.add('is-open');
+        toggle.classList.add('is-active');
         overlay?.classList.add('is-visible');
         toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Zamknij menu');
         document.body.style.overflow = 'hidden';
     };
 
     const closeMenu = () => {
         links.classList.remove('is-open');
+        toggle.classList.remove('is-active');
         overlay?.classList.remove('is-visible');
         toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Otwórz menu');
         document.body.style.overflow = '';
     };
 
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (event) => {
+        event.preventDefault();
         const isOpen = links.classList.contains('is-open');
         isOpen ? closeMenu() : openMenu();
     });
 
     overlay?.addEventListener('click', closeMenu);
 
-    navAnchors.forEach(anchor => {
+    links.querySelectorAll('a').forEach(anchor => {
         anchor.addEventListener('click', closeMenu);
     });
 
