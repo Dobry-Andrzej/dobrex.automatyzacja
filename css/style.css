@@ -362,11 +362,6 @@ body::after {
     gap: var(--space-lg);
 }
 
-.portfolio-grid--single {
-    grid-template-columns: minmax(0, 760px);
-    justify-content: center;
-}
-
 .portfolio-card {
     background: var(--color-paper-2);
     border: 1px solid oklch(96% 0.006 262 / 0.06);
@@ -460,6 +455,7 @@ body::after {
 }
 
 .workflow-node text {
+    font-family: var(--font-mono);
     text-anchor: middle;
     pointer-events: none;
 }
@@ -473,8 +469,7 @@ body::after {
 }
 
 .node-label {
-    font-family: var(--font-mono);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     fill: var(--color-ink);
 }
@@ -518,6 +513,13 @@ body::after {
 
 .workflow-dot.is-visible {
     opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .workflow-node rect,
+    .workflow-dot {
+        transition: none;
+    }
 }
 
 .card-tags {
@@ -869,7 +871,7 @@ body::after {
     }
 
     .workflow-animation .node-label {
-        font-size: 22px;
+        font-size: 18px;
     }
 }
 

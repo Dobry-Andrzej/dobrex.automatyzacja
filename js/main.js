@@ -138,7 +138,7 @@ function initGSAPAnimations() {
    ======================================== */
 
 function initWorkflowAnimations() {
-    const containers = document.querySelectorAll('.card-animation');
+    const containers = document.querySelectorAll('.card-animation:not(.workflow-animation)');
 
     containers.forEach((container, index) => {
         const canvas = document.createElement('canvas');
@@ -492,6 +492,7 @@ function roundRect(ctx, x, y, w, h, r) {
 function initWeatherWorkflow() {
     const container = document.querySelector('.workflow-animation');
     if (!container) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const dot1 = document.getElementById('dot-1');
     const dot2 = document.getElementById('dot-2');
